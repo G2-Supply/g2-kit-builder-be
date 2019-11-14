@@ -1,7 +1,9 @@
 // library imports 
 const express = require('express'); 
+const mongoose = require('mongoose'); 
 const cors = require('cors'); 
 const helmet = require('helmet'); 
+require('dotenv').config(); 
 
 //instantiating server 
 const server = express(); 
@@ -17,8 +19,11 @@ server.use(cors({
 // route imports 
 const usersRoute = require('./routes/users-route'); 
 
+// mongoose config 
+mongoose.connect(process.env.URL, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false });
+
 // routes 
-server.use('api/users', usersRoute); 
+server.use('/api/users', usersRoute); 
 
 // exporting for use in index.js
 
