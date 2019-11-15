@@ -89,7 +89,7 @@ router.post('/login', (req, res) => {
             res.status(201).json({ message: 'Welcome back!', token });
         })
         .catch(err => {
-            error(err, 401, res)
+            res.status(500).json({ message: 'There was an error.', error: `${err}` }); 
         })
   })
 
