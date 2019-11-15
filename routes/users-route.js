@@ -40,10 +40,30 @@ router.get('/:_id', mw.validateUserId, (req, res) => {
         }); 
 }); 
 
+// reset password
+router.get('/reset', (req, res) => {
+    
+    Users.findOne({
+        resetPasswordToken: req.query.resetPasswordToken,
+        // resetPasswordExpires: Date.now() + 360000
+    })
+    .then(user => {
+        if(!user) {
+            console.log('password reset link is invalid or has expired'); 
+            res.json('password reset link is invalid or has expired')
+        } else {
+            res.status(200).json({
+                username: user.username,
+                message: 'password reset link a-ok'
+            })
+        }
+    })
+})
 // ======================== POST Requests ==========================
 
 // add a user
-router.post('/', mw.checkUserObj, mw.validateUniqueEmail, (req, res) => {
+router.post('/', (req, res) => {
+    console.log(req.body); 
     const user = new Users(req.body);
   
     // saving the user to the users collection
@@ -58,24 +78,18 @@ router.post('/', mw.checkUserObj, mw.validateUniqueEmail, (req, res) => {
 });
 
 // signing in
-router.post('/login', mw.checkUserObj, (req, res) => {
+router.post('/login', (req, res) => {
     const { email, password } = req.body;
     
     Users.findOne({ email: email })
         .then(user => {
-            //If the password matches after going through the hash continue
-            if (user && bcrypt.compareSync(password, user.password)) {
-                // Create a token
-                const token = generateToken(user)
-        
-                res.status(201).json({ message: 'Welcome back!', token });
-            }
-            else {
-                error( 'Wrong Information', 401, res )
-            }
+            // Create a token
+            const token = generateToken(user)
+    
+            res.status(201).json({ message: 'Welcome back!', token });
         })
         .catch(err => {
-            error(err, 500, res)
+            error(err, 401, res)
         })
   })
 
@@ -85,31 +99,33 @@ router.post('/forgot-password', (req, res) => {
 
     Users.findOne({ email: email })
         .then(user => {
-            if(user) {
+            if(!user) {
                 console.log('email not in database'); 
-                res.status(405).json('This email is not associated with an account.'); 
+                res.status(404).json('This email is not associated with an account.'); 
             } else {
                 const token = crypto.randomBytes(20).toString('hex'); 
                 console.log(token); 
-                user.findOneAndUpdate({ email: email }, { accountRecoveryToken: token, resetPasswordExpires: Date.now() + 360000 }); 
+                Users.findByIdAndUpdate(user._id, { accountRecoveryToken: token, resetPasswordExpires: Date.now() + 360000 })
+                    .then(response => console.log(response))
+                    .catch(err => console.log(err)); 
 
                 const transporter = nodemailer.createTransport({
-                    service: 'Outlook365',
+                    service: 'Godaddy',
                     auth: {
                         user: `${process.env.EMAIL_ADDRESS}`,
-                        pass: `${process.env.EMAIL_PASSWORD}`,
+                        pass: `${process.env.EMAIL_PASSWORD}`
                     }
                 }); 
 
                 const mailOptions = {
-                    from: 'design@g2supply.com',
+                    from: `${process.env.EMAIL_ADDRESS}`,
                     to: `${user.email}`,
-                    subject: 'Link to Reset Password',
+                    subject: 'G2 Kit Builder - Password Reset Link',
                     text: `You are receiving this because you (or someone else) have requested the reset of the password for your G2 Kit Builder account.  
                     
                     Please click the following link, or paste it into your browser to complete the process.  This link will expire in 1 hour.
                     
-                    http://localhost:5000/reset/${token}
+                    http://localhost:3001/reset/${token}
 
                     If you did not request this, please ignore this email and your password will remain unchanged.
                     `
@@ -119,7 +135,7 @@ router.post('/forgot-password', (req, res) => {
                     if (err) {
                         console.error('There was an issue: ', err); 
                     } else {
-                        console.log('Response: ', ressponse); 
+                        console.log('Response: ', response); 
                     }
                 }); 
             }
@@ -140,6 +156,21 @@ router.put('/:_id', mw.validateUserId, mw.validateUniqueEmail, (req, res) => {
             res.status(500).json({ error: err }); 
         }); 
 }); 
+
+// updating password 
+// router.put('/updatePasswordViaEmail', (req, res) => {
+//     Users.findOne({ username: req.body.username })
+//         .then(user => {
+//             if(user) {
+//                 console.log('user exists'); 
+//                 bcrypt  
+//                     .hash(req.body.password, 12)
+//                     .then(hashedPassword => {
+//                         user
+//                     })
+//             }
+//         })
+// })
 
 // ======================== DELETE Requests ========================
 
