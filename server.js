@@ -17,13 +17,15 @@ server.use(cors({
 })); 
 
 // route imports 
-const usersRoute = require('./routes/users-route'); 
+const userRoutes = require('./routes/user-routes'); 
+const palletRoutes = require('./routes/pallet-routes'); 
 
 // mongoose config 
 mongoose.connect(process.env.URL, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false });
 
 // routes 
-server.use('/api/users', usersRoute); 
+server.use('/api/users', userRoutes); 
+server.use('/api/pallets', palletRoutes)
 
 // exporting for use in index.js
 
