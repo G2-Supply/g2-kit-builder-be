@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 // defining schema for the users collection in the database
 const palletSchema = new mongoose.Schema({
+    user_id: String,
     style_of_runner: String,
     length_of_runner: String,
     qty_of_runners: Number,
