@@ -23,9 +23,22 @@ router.get('/:_id', (req, res) => {
 
 // ======================== POST Requests ===========================
 // create new pallet for a specific user
-router.post('/', (req, res) => {
+router.post('/:_id', (req, res) => {
+    const _id = req.params
     console.log(req.body); 
-    const boxLids = new BoxLids(req.body);
+    const boxLids = new BoxLids({
+        user_id: _id,
+        style_of_box_lid: req.body.styleOfBoxLid,
+        board_grade: req.body.boardGrade,
+        length_of_box_lid: req.body.lengthOfBoxLid,
+        width_of_box_lid: req.body.widthOfBoxLid,
+        height_of_box_lid: req.body.heightOfBoxLid,
+        part_of_kit: req.body.partOfKit,
+        joint_construction: req.body.jointConstruction,
+        box_lid_print: req.body.print,
+        location_of_print: req.body.print,
+        box_lid_special_notes: req.body.boxLidSpecialNotes,
+    });
   
     // saving the user to the users collection
     boxLids.save()
