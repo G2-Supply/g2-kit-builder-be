@@ -19,13 +19,17 @@ server.use(cors({
 // route imports 
 const userRoutes = require('./routes/user-routes'); 
 const palletRoutes = require('./routes/pallet-routes'); 
+const boxRoutes = require('./routes/box-routes'); 
+const boxLidRoutes = require('./routes/box-lid-routes'); 
 
 // mongoose config 
 mongoose.connect(process.env.URL, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false });
 
 // routes 
 server.use('/api/users', userRoutes); 
-server.use('/api/pallets', palletRoutes)
+server.use('/api/pallets', palletRoutes); 
+server.use('/api/boxes', boxRoutes); 
+server.use('/api/box-lids', boxLidRoutes); 
 
 // exporting for use in index.js
 

@@ -24,10 +24,10 @@ router.get('/:_id', (req, res) => {
 // ======================== POST Requests ===========================
 // create new pallet for a specific user
 router.post('/:_id', (req, res) => {
-    const _id = req.params
     console.log(req.body); 
+
     const boxLids = new BoxLids({
-        user_id: _id,
+        user_id: req.params,
         style_of_box_lid: req.body.styleOfBoxLid,
         board_grade: req.body.boardGrade,
         length_of_box_lid: req.body.lengthOfBoxLid,
@@ -42,8 +42,8 @@ router.post('/:_id', (req, res) => {
   
     // saving the user to the users collection
     boxLids.save()
-    .then(pallet => {
-        res.status(201).json({ data: pallet })
+    .then(boxLid => {
+        res.status(201).json({ boxLid })
     })
     .catch(err => {
         res.status(500).json({ error: `${err}` })

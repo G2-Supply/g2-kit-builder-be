@@ -25,14 +25,31 @@ router.get('/:_id', (req, res) => {
 
 // ======================== POST Requests ===========================
 // create new pallet for a specific user
-router.post('/', (req, res) => {
+router.post('/:_id', (req, res) => {
     console.log(req.body); 
-    const pallet = new Pallets(req.body);
+
+    const pallet = new Pallets({
+        user_id: req.params,
+        style_of_runner: req.body.styleOfRunner,
+        length_of_runner: req.body.lengthOfRunner,
+        qty_of_runners: req.body.qtyOfRunners,
+        side_access: req.body.sideAccess,
+        runner_wood_quality: req.body.runnerWoodQuality,
+        required_pallet_certifications: req.body.requiredPalletCertifications,
+        runner_special_notes: req.body.runnerSpecialNotes,
+        style_of_top_boards: req.body.styleOfTopBoards,
+        qty_of_top_boards: req.body.qtyOfTopBoards,
+        length_of_deck_boards: req.body.lengthOfDeckBoards,
+        style_of_bottom_boards: req.body.styleOfBottomBoards,
+        qty_of_bottom_boards: req.body.qtyOfBottomBoards,
+        deck_board_wood_quality: req.body.deckBoardWoodQuality,
+        deck_board_special_notes: req.body.deckBoardSpecialNotes,
+    });
   
     // saving the user to the users collection
     pallet.save()
     .then(pallet => {
-        res.status(201).json({ data: pallet })
+        res.status(201).json({ pallet })
     })
     .catch(err => {
         res.status(500).json({ error: `${err}` })

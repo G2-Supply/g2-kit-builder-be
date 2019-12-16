@@ -8,7 +8,6 @@ const userSchema = new mongoose.Schema({
     first_name: String,
     last_name: String,
     company: String,
-    phone_number: { type: String, pattern: "^([0-9]{3}-[0-9]{3}-[0-9]{4}$" }
 });
 
 // instatiating the collection with the schema we created

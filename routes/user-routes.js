@@ -28,12 +28,12 @@ router.get('/', (req, res) => {
 }); 
 
 // get user by id
-router.get('/:_id', mw.validateUserId, (req, res) => {
+router.get('/:_id',(req, res) => {
     const { _id } = req.params; 
 
     Users.findById(_id)
         .then(docs => {
-            res.status(200).json({ data: docs }); 
+            res.status(200).json({ docs }); 
         })
         .catch(err => {
             res.status(500).json({ error: err }); 
@@ -64,7 +64,13 @@ router.get('/reset', (req, res) => {
 // add a user
 router.post('/', (req, res) => {
     console.log(req.body); 
-    const user = new Users(req.body);
+    const user = new Users({
+        email: req.body.email,
+        password: req.body.password,
+        first_name:  req.body.first_name,
+        last_name:  req.body.last_name,
+        company:  req.body.company,
+    });
   
     // saving the user to the users collection
     user.save()
