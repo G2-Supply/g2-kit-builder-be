@@ -151,12 +151,11 @@ router.post('/forgot-password', (req, res) => {
 // ======================== PUT Requests ===========================
 
 // update specific user information 
-router.put('/:_id', mw.validateUserId, mw.validateUniqueEmail, (req, res) => {
-    const { _id } = req.params;
-
-    Users.findByIdAndUpdate(_id, req.body)
+router.put('/:_id', (req, res) => {
+    
+    Users.findByIdAndUpdate(req.params, req.body)
         .then(updatedUser => {
-            res.status(204).json({ data: updatedUser }); 
+            res.status(200).json({ updatedUser }); 
         })
         .catch(err => {
             res.status(500).json({ error: err }); 
