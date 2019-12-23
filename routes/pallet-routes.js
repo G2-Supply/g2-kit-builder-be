@@ -30,13 +30,13 @@ router.post('/:_id', (req, res) => {
 
     const pallet = new Pallets({
         user_id: req.params,
-        style_of_runner: req.body.styleOfRunner,
-        length_of_runner: req.body.lengthOfRunner,
-        qty_of_runners: req.body.qtyOfRunners,
+        style_of_stringer: req.body.styleOfStringer,
+        length_of_stringer: req.body.lengthOfStringer,
+        qty_of_stringers: req.body.qtyOfStringers,
         side_access: req.body.sideAccess,
-        runner_wood_quality: req.body.runnerWoodQuality,
+        stringer_wood_quality: req.body.stringerWoodQuality,
         required_pallet_certifications: req.body.requiredPalletCertifications,
-        runner_special_notes: req.body.runnerSpecialNotes,
+        stringer_special_notes: req.body.stringerSpecialNotes,
         style_of_top_boards: req.body.styleOfTopBoards,
         qty_of_top_boards: req.body.qtyOfTopBoards,
         length_of_deck_boards: req.body.lengthOfDeckBoards,
