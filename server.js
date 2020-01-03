@@ -21,6 +21,8 @@ const userRoutes = require('./routes/user-routes');
 const palletRoutes = require('./routes/pallet-routes'); 
 const boxRoutes = require('./routes/box-routes'); 
 const boxLidRoutes = require('./routes/box-lid-routes'); 
+const foamRoutes = require('./routes/foam-routes'); 
+const dividerRoutes = require('./routes/divider-routes'); 
 
 // mongoose config 
 mongoose.connect(process.env.URL, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false });
@@ -30,6 +32,8 @@ server.use('/api/users', userRoutes);
 server.use('/api/pallets', palletRoutes); 
 server.use('/api/boxes', boxRoutes); 
 server.use('/api/box-lids', boxLidRoutes); 
+server.use('/api/foam', foamRoutes); 
+server.use('/api/dividers', dividerRoutes); 
 
 // exporting for use in index.js
 
