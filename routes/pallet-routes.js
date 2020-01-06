@@ -16,7 +16,19 @@ router.get('/:_id', (req, res) => {
 
     Pallets.findById(_id)
         .then(docs => {
-            res.status(200).json({ data: docs }); 
+            res.status(200).json({ docs }); 
+        })
+        .catch(err => {
+            res.status(500).json({ error: err }); 
+        }); 
+}); 
+
+router.get('/:kit_id', (req, res) => {
+    const { kit_id } = req.params; 
+
+    Pallets.findById(kit_id)
+        .then(docs => {
+            res.status(200).json({ docs }); 
         })
         .catch(err => {
             res.status(500).json({ error: err }); 
@@ -30,6 +42,7 @@ router.post('/:_id', (req, res) => {
 
     const pallet = new Pallets({
         user_id: req.params,
+        kit_id: req.body.kidId,
         style_of_stringer: req.body.styleOfStringer,
         length_of_stringer: req.body.lengthOfStringer,
         qty_of_stringers: req.body.qtyOfStringers,

@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 // defining schema for the users collection in the database
 const boxSchema = new mongoose.Schema({
     user_id: String,
+    kit_id: String,
     style_of_box: String,
     length_of_box: String,
     width_of_box: String,

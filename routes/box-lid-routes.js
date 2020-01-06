@@ -14,7 +14,20 @@ router.get('/:_id', (req, res) => {
 
     BoxLids.findById(_id)
         .then(docs => {
-            res.status(200).json({ data: docs }); 
+            res.status(200).json({ docs }); 
+        })
+        .catch(err => {
+            res.status(500).json({ error: err }); 
+        }); 
+}); 
+
+// GET box lids associated with a kit ID
+router.get('/:kit_id', (req, res) => {
+    const { kit_id } = req.params; 
+
+    BoxLids.findById(kit_id)
+        .then(docs => {
+            res.status(200).json({ docs }); 
         })
         .catch(err => {
             res.status(500).json({ error: err }); 
@@ -28,6 +41,7 @@ router.post('/:_id', (req, res) => {
 
     const boxLids = new BoxLids({
         user_id: req.params,
+        kit_id: req.body.kidId,
         style_of_box_lid: req.body.styleOfBoxLid,
         board_grade: req.body.boardGrade,
         length_of_box_lid: req.body.lengthOfBoxLid,

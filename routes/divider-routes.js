@@ -21,49 +21,59 @@ router.get('/:_id', (req, res) => {
         }); 
 }); 
 
+// GET divider associated with a kit ID
+router.get('/:kit_id', (req, res) => {
+    const { kit_id } = req.params; 
+
+    Dividers.findById(kit_id)
+        .then(docs => {
+            res.status(200).json({ docs }); 
+        })
+        .catch(err => {
+            res.status(500).json({ error: err }); 
+        }); 
+}); 
+
 // ======================== POST Requests ===========================
-// create new pallet for a specific user
+// create new divider for a specific user
 router.post('/:_id', (req, res) => {
     console.log(req.body); 
 
     const divider = new Dividers({
         typeOfDivider: null,
+        kit_id: req.body.kidId,
         corrugated: {
-            boardGrade: '',
-            lengthOfBox: '',
-            widthOfBox: '',
-            heightOfBox: '',
-            numberOfCells: '',
-            airPockets: '',
-            allCellsUsed: '',
-            coatings: '',
-            assembled: '',
-            partOfKit: '',
-            qtyPerKit: '',
+            boardGrade: req.body.boardGrade,
+            lengthOfBox: req.body.lengthOfBox,
+            widthOfBox: req.body.widthOfBox,
+            heightOfBox: req.body.heightOfBox,
+            numberOfCells: req.body.numberOfCells,
+            airPockets: req.body.airPockets,
+            allCellsUsed: req.body.allCellsUsed,
         },
         paper: {
-            lengthOfBox: '',
-            widthOfBox: '',
-            heightOfBox: '',
-            numberOfCells: '',
-            airPockets: '',
-            coated: '',
+            lengthOfBox: req.body.lengthOfBox,
+            widthOfBox: req.body.widthOfBox,
+            heightOfBox: req.body.heightOfBox,
+            numberOfCells: req.body.numberOfCells,
+            airPockets: req.body.airPockets,
+            coated: req.body.coated,
         },
         cloth: {
-            lengthOfBox: '',
-            widthOfBox: '',
-            heightOfBox: '',
-            numberOfCells: '',
-            airPockets: '',
-            material: '',
+            lengthOfBox: req.body.lengthOfBox,
+            widthOfBox: req.body.widthOfBox,
+            heightOfBox: req.body.heightOfBox,
+            numberOfCells: req.body.numberOfCells,
+            airPockets: req.body.airPockets,
+            material: req.body.material,
         },
         pcorr: {
-            lengthOfBox: '',
-            widthOfBox: '',
-            heightOfBox: '',
-            numberOfCells: '',
-            airPockets: '',
-            coated: '',
+            lengthOfBox: req.body.lengthOfBox,
+            widthOfBox: req.body.widthOfBox,
+            heightOfBox: req.body.heightOfBox,
+            numberOfCells: req.body.numberOfCells,
+            airPockets: req.body.airPockets,
+            coated: req.body.coated,
         }
     });
   

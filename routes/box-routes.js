@@ -8,7 +8,7 @@ const router = require('express').Router();
 const Boxes = require('../models/boxes-model');
 
 // ======================== GET Requests ===========================
-// GET pallets associated with a users ID
+// GET boxes associated with a users ID
 router.get('/:_id', (req, res) => {
     const { _id } = req.params; 
 
@@ -21,13 +21,27 @@ router.get('/:_id', (req, res) => {
         }); 
 }); 
 
+// GET boxes associated with a kit id
+router.get('/:kit_id', (req, res) => {
+    const { kit_id } = req.params; 
+
+    Boxes.findById(kit_id)
+        .then(docs => {
+            res.status(200).json({ data: docs }); 
+        })
+        .catch(err => {
+            res.status(500).json({ error: err }); 
+        }); 
+}); 
+
 // ======================== POST Requests ===========================
-// create new pallet for a specific user
+// create new box for a specific user
 router.post('/:_id', (req, res) => {
     console.log(req.body); 
 
     const box = new Boxes({
         user_id: req.params,
+        kit_id: req.body.kidId,
         style_of_box: req.body.styleOfBox,
         length_of_box: req.body.lengthOfBox,
         width_of_box: req.body.widthOfBox,
