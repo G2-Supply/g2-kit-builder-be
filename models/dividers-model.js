@@ -29,8 +29,9 @@ const mongoose = require('mongoose');
 
 // defining schema for the users collection in the database
 const dividerSchema = new mongoose.Schema({
+    user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
     typeOfDivider: String,
-    kit_id: String,
+    kit_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Kit' },
     corrugated: { 
         boardGrade: String,
         lengthOfBox: String,

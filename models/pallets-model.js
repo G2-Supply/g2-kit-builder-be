@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 
 // defining schema for the users collection in the database
 const palletSchema = new mongoose.Schema({
-    user_id: String,
-    kit_id: String,
+    user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
+    kit_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Kit' },
     style_of_stringer: String,
     length_of_stringer: String,
     qty_of_stringers: String,

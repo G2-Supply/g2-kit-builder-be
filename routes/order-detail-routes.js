@@ -2,7 +2,7 @@
 // a 1 liner short cut for creating a router with express
 const router = require('express').Router();
 
-// middlware imports;
+// middleware imports;
 
 // model imports 
 const OrderDetails = require('../models/order-details-model');
@@ -27,7 +27,7 @@ router.get('/:kit_id', (req, res) => {
 
     OrderDetails.findById(kit_id)
         .then(docs => {
-            res.status(200).json({ data: docs }); 
+            res.status(200).json({ docs }); 
         })
         .catch(err => {
             res.status(500).json({ error: err }); 
@@ -53,7 +53,7 @@ router.post('/:_id', (req, res) => {
         res.status(201).json({ orderDetails })
     })
     .catch(err => {
-        res.status(500).json({ error: `${err}` })
+        res.status(500).json({ `` })
     });
 });
 
