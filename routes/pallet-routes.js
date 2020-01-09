@@ -42,7 +42,7 @@ router.post('/:_id', (req, res) => {
 
     const pallet = new Pallets({
         user_id: req.params,
-        kit_id: req.body.kidId,
+        kit_id: req.body.kitId,
         style_of_stringer: req.body.styleOfStringer,
         length_of_stringer: req.body.lengthOfStringer,
         qty_of_stringers: req.body.qtyOfStringers,

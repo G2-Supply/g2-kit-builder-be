@@ -41,7 +41,7 @@ router.post('/:_id', (req, res) => {
 
     const boxLids = new BoxLids({
         user_id: req.params,
-        kit_id: req.body.kidId,
+        kit_id: req.body.kitId,
         style_of_box_lid: req.body.styleOfBoxLid,
         board_grade: req.body.boardGrade,
         length_of_box_lid: req.body.lengthOfBoxLid,

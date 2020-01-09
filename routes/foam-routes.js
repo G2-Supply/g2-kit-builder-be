@@ -25,11 +25,11 @@ router.get('/:_id', (req, res) => {
 // ======================== POST Requests ===========================
 // create new foam for a specific user
 router.post('/:_id', (req, res) => {
-    console.log(req.body); 
+    console.log(req.body.kitId); 
 
     const foam = new Foam({
         user_id: req.params,
-        kit_id: req.body.kidId,
+        kit_id: req.body.kitId,
         lengthOfFoam: req.body.lengthOfFoam,
         widthOfFoam: req.body.widthOfFoam,
         heightOfFoam: req.body.heightOfFoam,
