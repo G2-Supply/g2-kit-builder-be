@@ -10,8 +10,8 @@ const userSchema = new mongoose.Schema({
     company: String,
 });
 
-// instatiating the collection with the schema we created
-const Users = new mongoose.model('Users', userSchema);
+// instatiating the collection with the schema we created 
+const Users = new mongoose.model('Users', userSchema);    
 
 // exporting the collection
 module.exports = Users; 

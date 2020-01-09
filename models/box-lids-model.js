@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 // defining schema for the users collection in the database
 const boxLidSchema = new mongoose.Schema({
     user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
-    kit_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Kit' },
+    kit_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Kits' },
     style_of_box_lid: String,
     length_of_box_lid: String,
     width_of_box_lid: String,

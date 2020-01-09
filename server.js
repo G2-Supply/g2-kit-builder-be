@@ -25,6 +25,7 @@ const foamRoutes = require('./routes/foam-routes');
 const dividerRoutes = require('./routes/divider-routes'); 
 const orderDetailsRoutes = require('./routes/order-detail-routes'); 
 const kitRoutes = require('./routes/kit-routes'); 
+const quoteRoutes = require('./routes/quote-routes'); 
 
 // mongoose config 
 mongoose.connect(process.env.URL, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false });
@@ -38,6 +39,7 @@ server.use('/api/foam', foamRoutes);
 server.use('/api/dividers', dividerRoutes); 
 server.use('/api/order-details', orderDetailsRoutes);
 server.use('/api/kits', kitRoutes); 
+server.use('/api/quote', quoteRoutes); 
 
 // exporting for use in index.js
 

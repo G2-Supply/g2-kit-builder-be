@@ -31,7 +31,7 @@ const mongoose = require('mongoose');
 const dividerSchema = new mongoose.Schema({
     user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
     typeOfDivider: String,
-    kit_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Kit' },
+    kit_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Kits' },
     corrugated: { 
         boardGrade: String,
         lengthOfBox: String,

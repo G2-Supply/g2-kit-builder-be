@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 // defining schema for the users collection in the database
 const foamSchema = new mongoose.Schema({
     user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
+    kit_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Kits' },
     lengthOfFoam: String,
     widthOfFoam: String,
     heightOfFoam: String,

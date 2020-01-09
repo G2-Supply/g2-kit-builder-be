@@ -53,7 +53,7 @@ router.post('/:_id', (req, res) => {
         res.status(201).json({ orderDetails })
     })
     .catch(err => {
-        res.status(500).json({ `` })
+        res.status(500).json({ error: `${err}` })
     });
 });
 
