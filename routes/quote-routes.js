@@ -1,8 +1,8 @@
 // library imports
 // a 1 liner short cut for creating a router with express
-const router = require('express').Router(); 
-require('dotenv').config(); 
-const nodemailer = require('nodemailer'); 
+const router = require('express').Router();
+require('dotenv').config();
+const nodemailer = require('nodemailer');
 
 // middleware imports;
 
@@ -18,15 +18,15 @@ const OrderDetails = require('../models/order-details-model');
 // ======================== GET Requests ===========================
 // GET kit associated with a users ID
 router.get('/:_id', (req, res) => {
-    const { _id } = req.params; 
+    const { _id } = req.params;
 
     Kits.findById(_id)
         .then(docs => {
-            res.status(200).json({ data: docs }); 
+            res.status(200).json({ data: docs });
         })
         .catch(err => {
-            res.status(500).json({ error: err }); 
-        }); 
+            res.status(500).json({ error: err });
+        });
 });
 
 
@@ -38,7 +38,7 @@ router.get('/:_id', (req, res) => {
 //     const kit = new Kits({
 //         user_id: req.params,
 //     });
-  
+
 //     // saving the user to the users collection
 //     kit.save()
 //     .then(kit => {
@@ -52,90 +52,117 @@ router.get('/:_id', (req, res) => {
 
 // send a kit to G2 for quoting
 router.post('/:_id', (req, res) => {
-    const kit_id = req.body.kitId; 
+    const kit_id = req.body.kitId;
 
     const kitArr = []
-
+    // console.log(req.body
     Pallets.find({ kit_id })
-    .then(docs => {
-        kitArr.push(docs[0]); 
-        // res.status(201).json({ kitArr })
-    })
-    .catch(err => { 
-        res.status(500).json({ error: err }); 
-    }); 
+        .then(docs => {
+            kitArr.push(docs[0]);
+            // res.status(201).json({ kitArr })
+        })
+        .catch(err => {
+            res.status(500).json({ error: err });
+        });
 
     Boxes.find({ kit_id })
-    .then(docs => {
-        kitArr.push(docs[0]); 
-        // res.status(201).json({ kitArr })
-    })
-    .catch(err => { 
-        res.status(500).json({ error: err }); 
-    }); 
+        .then(docs => {
+            kitArr.push(docs[0]);
+            // res.status(201).json({ kitArr })
+        })
+        .catch(err => {
+            res.status(500).json({ error: err });
+        });
 
     BoxLids.find({ kit_id })
-    .then(docs => {
-        kitArr.push(docs[0]); 
-        // res.status(201).json({ kitArr })
-    })
-    .catch(err => { 
-        res.status(500).json({ error: err }); 
-    }); 
+        .then(docs => {
+            kitArr.push(docs[0]);
+            // res.status(201).json({ kitArr })
+        })
+        .catch(err => {
+            res.status(500).json({ error: err });
+        });
 
     Dividers.find({ kit_id })
-    .then(docs => {
-        kitArr.push(docs[0]); 
-        // res.status(201).json({ kitArr }) 
-    })
-    .catch(err => { 
-        res.status(500).json({ error: err }); 
-    }); 
+        .then(docs => {
+            kitArr.push(docs[0]);
+            // res.status(201).json({ kitArr }) 
+        })
+        .catch(err => {
+            res.status(500).json({ error: err });
+        });
 
     Foam.find({ kit_id })
-    .then(docs => {
-        kitArr.push(docs[0]); 
-        // res.status(201).json({ kitArr })
-    })
-    .catch(err => { 
-        res.status(500).json({ error: err }); 
-    }); 
+        .then(docs => {
+            kitArr.push(docs[0]);
+            // res.status(201).json({ kitArr })
+        })
+        .catch(err => {
+            res.status(500).json({ error: err });
+        });
 
-    OrderDetails.find({ kit_id })
-    .then(docs => {
-        kitArr.push(docs[0]); 
-        // res.status(201).json({ kitArr }) 
-        res.status(201).json({ kitArr })
+    setTimeout(() => {
+        OrderDetails.find({ kit_id })
+        .then(docs => {
+            kitArr.push(docs[0]);
+            // res.status(201).json({ kitArr }) 
+            res.status(201).json({ kitArr })
+            console.log(kitArr); 
 
-        const transporter = nodemailer.createTransport({
-            service: 'Outlook365',
-            auth: {
-                user: `${process.env.EMAIL_ADDRESS}`,
-                pass: `${process.env.EMAIL_PASSWORD}`
+            const transporter = nodemailer.createTransport({
+                service: 'Outlook365',
+                auth: {
+                    user: `${process.env.EMAIL_ADDRESS}`,
+                    pass: `${process.env.EMAIL_PASSWORD}`
+                }
+            });
+
+            const mailOptions = {
+                from: `${process.env.EMAIL_ADDRESS}`,
+                to: `elijahmckay10@gmail.com`,
+                subject: `G2 Kit Builder - Quote Request From ${req.body.userCompany}`,
+                text: `
+                Quote request from: ${req.body.userCompany}
+                Email: ${req.body.userEmail}
+
+
+                Pallet Specifications
+                ------------------------
+                Stringer Style: 
+                
+                `
             }
-        }); 
+            // Stringer Style: ${styleOfStringer}
+            // Stringer Length: ${lengthOfStringer}
+            // Stringer Quantity: ${qtyOfStringers}
+            // Side Acess: ${sideAccess}
+            // Runner Wood Quality: ${runnerWoodQuality}
+            // Required Pallet Certifications: ${requiredPalletCertifications}
+            // Special Notes for Stringer: ${runnerSpecialNotes}
+            // Top Board Style: ${styleOfTopBoards}
+            // Quantity of Top Boards: ${qtyOfTopBoards}
+            // Bottom Board Style Style: ${styleOfBottomBoards}
+            // Quantity of Bottom Boards: ${qtyOfBottomBoards}
+            // Length of Deck Boards: ${lengthOfDeckBoards}
+            // Deck Board Wood Quality: ${deckBoardWoodQuality}
+            // Special Notes for Deck Boards: ${deckBoardSpecialNotes}
+            setTimeout(() => {
+                transporter.sendMail(mailOptions, function (err, response) {
+                    if (err) {
+                        console.error('There was an issue: ', err);
+                    } else {
+                        console.log('Response: ', response);
+                    }
+                });
+            })
 
-        const mailOptions = {
-            from: `${process.env.EMAIL_ADDRESS}`,
-            to: `sales@g2supply.com`,
-            subject: 'G2 Kit Builder - Quote',
-            text: `
-              You are receiving a quote ${kitArr}
-            `
-        }
 
-        transporter.sendMail(mailOptions, function(err, response) {
-            if (err) {
-                console.error('There was an issue: ', err); 
-            } else {
-                console.log('Response: ', response); 
-            }
-        }); 
+        })
+        .catch(err => {
+            res.status(500).json({ error: err });
+        });
+    }, 2000)
 
-    })
-    .catch(err => { 
-        res.status(500).json({ error: err }); 
-    }); 
 })
 // ======================== PUT Requests ===========================
 

@@ -91,8 +91,8 @@ router.post('/login', (req, res) => {
         .then(user => {
             // Create a token
             const token = generateToken(user)
-    
-            res.status(201).json({ message: 'Welcome back!', token });
+            console.log(user); 
+            res.status(201).json({ user, token });
         })
         .catch(err => {
             res.status(500).json({ message: 'There was an error.', error: `${err}` }); 
@@ -198,6 +198,7 @@ const generateToken = user => {
     const payload = {
         subject: user.id,
         email: user.email,
+        company: user.company
     };
     const options = {
         expiresIn: '8h',
