@@ -11,7 +11,6 @@ const boxSchema = new mongoose.Schema({
     height_of_box: String,
     grade_of_corrugated: String,
     box_special_notes: String,
-    box_use: String,
     box_print: String,
     box_joint: String,
     location_of_print: String,
