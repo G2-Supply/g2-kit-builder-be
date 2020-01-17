@@ -108,7 +108,7 @@ router.post('/:_id', (req, res) => {
         res.status(201).json({ kitArr })
 
         const transporter = nodemailer.createTransport({
-            service: 'Gmail',
+            service: 'Outlook365',
             auth: {
                 user: `${process.env.EMAIL_ADDRESS}`,
                 pass: `${process.env.EMAIL_PASSWORD}`
@@ -117,7 +117,7 @@ router.post('/:_id', (req, res) => {
 
         const mailOptions = {
             from: `${process.env.EMAIL_ADDRESS}`,
-            to: `elijahmckay10@gmail.com`,
+            to: `sales@g2supply.com`,
             subject: 'G2 Kit Builder - Quote',
             text: `
               You are receiving a quote ${kitArr}
