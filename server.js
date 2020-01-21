@@ -17,6 +17,7 @@ server.use(cors({
 })); 
 
 // route imports 
+const testRoutes = require('./routes/test-routes'); 
 const userRoutes = require('./routes/user-routes'); 
 const palletRoutes = require('./routes/pallet-routes'); 
 const boxRoutes = require('./routes/box-routes'); 
@@ -31,6 +32,7 @@ const quoteRoutes = require('./routes/quote-routes');
 mongoose.connect(process.env.URL, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false });
 
 // routes 
+server.use('/', testRoutes); 
 server.use('/api/users', userRoutes); 
 server.use('/api/pallets', palletRoutes); 
 server.use('/api/boxes', boxRoutes); 
@@ -40,6 +42,7 @@ server.use('/api/dividers', dividerRoutes);
 server.use('/api/order-details', orderDetailsRoutes);
 server.use('/api/kits', kitRoutes); 
 server.use('/api/quote', quoteRoutes); 
+
 
 // exporting for use in index.js
 
