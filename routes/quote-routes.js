@@ -190,22 +190,22 @@ router.post('/:_id', (req, res) => {
 
                                         Foam Specifications
                                         -------------------------
-                                        ${foam.lengthOfFoam}
-                                        ${foam.widthOfFoam}
-                                        ${foam.heightOfFoam}
-                                        ${foam.material}
-                                        ${foam.color}
-                                        ${foam.density}
-                                        ${foam.lbPerCubicFoot}
-                                        ${foam.dieCut}
-                                        ${foam.drawingAvailable}
+                                        Length of Foam: ${foam.lengthOfFoam}
+                                        Width of Foam: ${foam.widthOfFoam}
+                                        Height of Foam: ${foam.heightOfFoam}
+                                        Type of Foam: ${foam.material}
+                                        Color: ${foam.color}
+                                        Density: ${foam.density}
+                                        Lb per Cubic Foot: ${foam.lbPerCubicFoot}
+                                        Die cut?: ${foam.dieCut}
+                                        Drawing Available?: ${foam.drawingAvailable}
 
 
                                         Order Details Specifications
                                         -----------------------------------
-                                        ${orderDetails.monthly_quantity}
-                                        ${orderDetails.annual_quantity}
-                                        ${orderDetails.order_frequency}
+                                        Monthly Quantity: ${orderDetails.monthly_quantity}
+                                        Annual Quanitity: ${orderDetails.annual_quantity}
+                                        Order Frequency: ${orderDetails.order_frequency}
 
                                         `
                                     }
