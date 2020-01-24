@@ -62,7 +62,7 @@ router.get('/reset', (req, res) => {
 // ======================== POST Requests ==========================
 
 // add a user
-router.post('/register', (req, res) => {
+router.post('/register', mw.checkUserObj, mw.validateUniqueEmail, (req, res) => {
     // console.log(req.body); 
     const hash = bcrypt.hashSync(req.body.password, 12);
     req.body.password = hash;
