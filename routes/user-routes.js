@@ -62,8 +62,13 @@ router.get('/reset', (req, res) => {
 // ======================== POST Requests ==========================
 
 // add a user
-router.post('/', (req, res) => {
-    console.log(req.body); 
+router.post('/register', (req, res) => {
+    // console.log(req.body); 
+    const hash = bcrypt.hashSync(req.body.password, 12);
+    req.body.password = hash;
+    // testing to make sure hash is being set to password properly
+    // console.log(req.body.password); 
+
     const user = new Users({
         email: req.body.email,
         password: req.body.password,
@@ -83,20 +88,28 @@ router.post('/', (req, res) => {
     });
 });
 
-// signing in
-router.post('/login', (req, res) => {
+router.post('/login', mw.checkUserObj, (req, res) => {
     const { email, password } = req.body;
     
-    Users.findOne({ email: email })
-        .then(user => {
-            // Create a token
-            const token = generateToken(user)
-            console.log(user); 
-            res.status(201).json({ user, token });
-        })
-        .catch(err => {
-            res.status(500).json({ message: 'There was an error.', error: `${err}` }); 
-        })
+    Users
+    //Query to search for a user where the emails match
+    .findOne({ email: email })
+    .then(user => {
+        console.log(user); 
+      //If the password matches after going through the hash continue
+      if (user && bcrypt.compareSync(password, user.password)) {
+        // Create a token
+        const token = generateToken(user)
+  
+        res.status(200).json({ message: 'Welcome back!', user, token });
+      }
+      else {
+        res.status(401).json({ error: 'Invalid Credentials.'}); 
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ error: "It's not you, it's us.", err}); 
+    })
   })
 
 // account recovery endpoint
