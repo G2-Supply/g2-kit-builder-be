@@ -15,18 +15,6 @@ const Users = require('../models/users-model');
 
 // ======================== GET Requests ===========================
 
-// get list of all users (admin only)
-router.get('/', (req, res) => {
-
-    Users.find()
-        .then(docs => {
-            res.status(200).json({ data: docs }); 
-        })
-        .catch(err => {
-            res.status(500).json({ error: err }); 
-        }); 
-}); 
-
 // get user by id
 router.get('/:_id',(req, res) => {
     const { _id } = req.params; 
@@ -163,17 +151,19 @@ router.post('/forgot-password', (req, res) => {
   
 // ======================== PUT Requests ===========================
 
-// update specific user information 
-router.put('/:_id', (req, res) => {
-    
-    Users.findByIdAndUpdate(req.params, req.body)
-        .then(updatedUser => {
-            res.status(200).json({ updatedUser }); 
-        })
-        .catch(err => {
-            res.status(500).json({ error: err }); 
-        }); 
-}); 
+//Update existing user
+router.put('/:_id', mw.validateUserId, mw.validateUniqueEmail, (req, res) => {
+    const { _id } = req.params;
+    const changes = req.body;
+  
+    Users.findByIdAndUpdate(_id, changes)
+    .then(ogUserObj => {
+      Users.findById(_id)
+        .then(updatedUser => res.status(202).json(updatedUser))
+        .catch(err => res.status(500).json({ error: err }))
+    })
+    .catch(err => res.status(500).json({ error: err }));
+  });
 
 // updating password 
 // router.put('/updatePasswordViaEmail', (req, res) => {
