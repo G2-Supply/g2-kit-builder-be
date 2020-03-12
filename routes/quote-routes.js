@@ -124,14 +124,14 @@ router.post('/:_id', (req, res) => {
                                         Quantity of Bottom Boards: ${pallet.wood.qty_of_bottom_boards}
                                         Deck Board Wood Quality: ${pallet.wood.deck_board_wood_quality}
                                         Deck Board Special Notes: ${pallet.wood.deck_board_special_notes}
-                                        
+
                                         ------ Plastic ------
                                         Type Of Plastic: ${pallet.plastic.style_of_pallet},
                                         Length Of Pallet: ${pallet.plastic.length_of_pallet},
                                         Width Of Pallet: ${pallet.plastic.width_of_pallet},
                                         Height Of Pallet: ${pallet.plastic.height_of_pallet},
-                                        
-                                        
+
+
                                         Box Specifications
                                         ----------------------------
                                         Box Style: ${box.style_of_box}
@@ -143,8 +143,8 @@ router.post('/:_id', (req, res) => {
                                         Box Print: ${box.box_print}
                                         Joint Construction: ${box.box_joint}
                                         Location of Print: ${box.location_of_print}
-                                        
-                                        
+
+
                                         Box Lid Specifications
                                         ---------------------------
                                         Style of Box Lid: ${boxLid.style_of_box_lid}
@@ -223,11 +223,12 @@ router.post('/:_id', (req, res) => {
                                     transporter.sendMail(mailOptions) 
                                     .then(res => {
                                         // console.log('this is in the transporter', res); 
-                                        res.status(201).json({ kitArr })
+                                        // res.status(201).json({ kitArr })
+                                        console.log(res)
                                     })
                                     .catch(err => {
                                         console.log('this is in the transporter', err); 
-                                        res.status(500).json(err)
+                                        // res.status(500).json(err)
                                     })
                                 })
                                 .catch(err => {
