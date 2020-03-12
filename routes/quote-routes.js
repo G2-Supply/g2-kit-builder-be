@@ -108,20 +108,28 @@ router.post('/:_id', (req, res) => {
 
                                         Pallet Specifications
                                         ----------------------------
-                                        Stringer Style: ${pallet.style_of_stringer}
-                                        Length of Stringer: ${pallet.length_of_stringer}
-                                        Quantity of Stringers: ${pallet.qty_of_stringers}
-                                        Side Access?: ${pallet.side_access}
-                                        Stringer Wood Quality: ${pallet.stringer_wood_quality}
-                                        Required Pallet Certifications: ${pallet.required_pallet_certifications}
-                                        Special Notes for Stringer: ${pallet.stringer_special_notes}
-                                        Top Board Style: ${pallet.style_of_top_boards}
-                                        Quantity of Top Boards: ${pallet.qty_of_top_boards}
-                                        Length of Deck Boards: ${pallet.length_of_deck_boards}
-                                        Style of Bottom Boards: ${pallet.style_of_bottom_boards}
-                                        Quantity of Bottom Boards: ${pallet.qty_of_bottom_boards}
-                                        Deck Board Wood Quality: ${pallet.deck_board_wood_quality}
-                                        Deck Board Special Notes: ${pallet.deck_board_special_notes}
+
+                                        ------ Wood -------
+                                        Stringer Style: ${pallet.wood.style_of_stringer}
+                                        Length of Stringer: ${pallet.wood.length_of_stringer}
+                                        Quantity of Stringers: ${pallet.wood.qty_of_stringers}
+                                        Side Access?: ${pallet.wood.side_access}
+                                        Stringer Wood Quality: ${pallet.wood.stringer_wood_quality}
+                                        Required Pallet Certifications: ${pallet.wood.required_pallet_certifications}
+                                        Special Notes for Stringer: ${pallet.wood.stringer_special_notes}
+                                        Top Board Style: ${pallet.wood.style_of_top_boards}
+                                        Quantity of Top Boards: ${pallet.wood.qty_of_top_boards}
+                                        Length of Deck Boards: ${pallet.wood.length_of_deck_boards}
+                                        Style of Bottom Boards: ${pallet.wood.style_of_bottom_boards}
+                                        Quantity of Bottom Boards: ${pallet.wood.qty_of_bottom_boards}
+                                        Deck Board Wood Quality: ${pallet.wood.deck_board_wood_quality}
+                                        Deck Board Special Notes: ${pallet.wood.deck_board_special_notes}
+
+                                        ------ Plastic ------
+                                        Type Of Plastic: ${pallet.plastic.type_of_plastic},
+                                        Length Of Pallet: ${pallet.plastic.length_of_pallet},
+                                        Width Of Pallet: ${pallet.plastic.width_of_pallet},
+                                        Height Of Pallet: ${pallet.plastic.height_of_pallet},
 
 
                                         Box Specifications
