@@ -43,20 +43,28 @@ router.post('/:_id', (req, res) => {
     const pallet = new Pallets({
         user_id: req.params,
         kit_id: req.body.kitId,
-        style_of_stringer: req.body.styleOfStringer,
-        length_of_stringer: req.body.lengthOfStringer,
-        qty_of_stringers: req.body.qtyOfStringers,
-        side_access: req.body.sideAccess,
-        stringer_wood_quality: req.body.runnerWoodQuality,
-        required_pallet_certifications: req.body.requiredPalletCertifications,
-        stringer_special_notes: req.body.runnerSpecialNotes,
-        style_of_top_boards: req.body.styleOfTopBoards,
-        qty_of_top_boards: req.body.qtyOfTopBoards,
-        length_of_deck_boards: req.body.lengthOfDeckBoards,
-        style_of_bottom_boards: req.body.styleOfBottomBoards,
-        qty_of_bottom_boards: req.body.qtyOfBottomBoards,
-        deck_board_wood_quality: req.body.deckBoardWoodQuality,
-        deck_board_special_notes: req.body.deckBoardSpecialNotes,
+        wood: {
+            style_of_stringer: req.body.wood.styleOfStringer,
+            length_of_stringer: req.body.wood.lengthOfStringer,
+            qty_of_stringers: req.body.wood.qtyOfStringers,
+            side_access: req.body.wood.sideAccess,
+            stringer_wood_quality: req.body.wood.runnerWoodQuality,
+            required_pallet_certifications: req.body.wood.requiredPalletCertifications,
+            stringer_special_notes: req.body.wood.runnerSpecialNotes,
+            style_of_top_boards: req.body.wood.styleOfTopBoards,
+            qty_of_top_boards: req.body.wood.qtyOfTopBoards,
+            length_of_deck_boards: req.body.wood.lengthOfDeckBoards,
+            style_of_bottom_boards: req.body.wood.styleOfBottomBoards,
+            qty_of_bottom_boards: req.body.wood.qtyOfBottomBoards,
+            deck_board_wood_quality: req.body.wood.deckBoardWoodQuality,
+            deck_board_special_notes: req.body.wood.deckBoardSpecialNotes,
+        },
+        pallet: {
+            type_of_plastic: req.body.plastic.typeOfPlastic,
+            length_of_pallet: req.body.plastic.lengthOfPallet,
+            width_of_pallet: req.body.plastic.widthOfPallet,
+            height_of_pallet: req.body.plastic.heightOfPallet,
+        }
     });
   
     // saving the user to the users collection

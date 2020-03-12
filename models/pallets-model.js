@@ -5,20 +5,29 @@ const mongoose = require('mongoose');
 const palletSchema = new mongoose.Schema({
     user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
     kit_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Kits' },
-    style_of_stringer: String,
-    length_of_stringer: String,
-    qty_of_stringers: String,
-    side_access: String,
-    stringer_wood_quality: String,
-    required_pallet_certifications: String,
-    stringer_special_notes: String,
-    style_of_top_boards: String,
-    qty_of_top_boards: String,
-    length_of_deck_boards: String,
-    style_of_bottom_boards: String,
-    qty_of_bottom_boards: String,
-    deck_board_wood_quality: String,
-    deck_board_special_notes: String,
+    wood: {
+        style_of_stringer: String,
+        length_of_stringer: String,
+        qty_of_stringers: String,
+        side_access: String,
+        stringer_wood_quality: String,
+        required_pallet_certifications: String,
+        stringer_special_notes: String,
+        style_of_top_boards: String,
+        qty_of_top_boards: String,
+        length_of_deck_boards: String,
+        style_of_bottom_boards: String,
+        qty_of_bottom_boards: String,
+        deck_board_wood_quality: String,
+        deck_board_special_notes: String,
+    },
+    plastic: {
+        type_of_plastic: String,
+        length_of_pallet: String,
+        width_of_pallet: String,
+        height_of_pallet: String,
+    }
+
 });
 
 // instatiating the collection with the schema we created
