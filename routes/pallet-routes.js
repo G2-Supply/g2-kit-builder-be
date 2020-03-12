@@ -38,7 +38,7 @@ router.get('/:kit_id', (req, res) => {
 // ======================== POST Requests ===========================
 // create new pallet for a specific user
 router.post('/:_id', (req, res) => {
-    console.log(req.body); 
+    // console.log(req.body); 
 
     const pallet = new Pallets({
         user_id: req.params,
@@ -59,8 +59,8 @@ router.post('/:_id', (req, res) => {
             deck_board_wood_quality: req.body.wood.deckBoardWoodQuality,
             deck_board_special_notes: req.body.wood.deckBoardSpecialNotes,
         },
-        pallet: {
-            type_of_plastic: req.body.plastic.typeOfPlastic,
+        plastic: {
+            style_of_pallet: req.body.plastic.styleOfPallet,
             length_of_pallet: req.body.plastic.lengthOfPallet,
             width_of_pallet: req.body.plastic.widthOfPallet,
             height_of_pallet: req.body.plastic.heightOfPallet,

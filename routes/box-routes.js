@@ -41,19 +41,19 @@ router.post('/:_id', (req, res) => {
 
     const box = new Boxes({
         user_id: req.params,
-        kit_id: req.body.kitId,
-        style_of_box: req.body.styleOfBox,
-        length_of_box: req.body.lengthOfBox,
-        width_of_box: req.body.widthOfBox,
-        height_of_box: req.body.heightOfBox,
-        grade_of_corrugated: req.body.boardGrade,
-        // order_frequency:req.body. ,
-        // order_quantity:req.body. ,
-        part_of_kit: req.body.partOfKit,
-        box_joint: req.body.jointConstruction,
-        box_print: req.body.print,
-        location_of_print: req.body.locationOfPrint,
-        box_special_notes: req.body.boxSpecialNotes,
+        kit_id: req.body.kitId || '',
+        style_of_box: req.body.styleOfBox || '',
+        length_of_box: req.body.lengthOfBox || '',
+        width_of_box: req.body.widthOfBox || '',
+        height_of_box: req.body.heightOfBox || '',
+        grade_of_corrugated: req.body.boardGrade || '',
+        // order_frequency:req.body.  || '',
+        // order_quantity:req.body.  || '',
+        part_of_kit: req.body.partOfKit || '',
+        box_joint: req.body.jointConstruction || '',
+        box_print: req.body.print || '',
+        location_of_print: req.body.locationOfPrint || '',
+        box_special_notes: req.body.boxSpecialNotes || '',
     });
   
     // saving the user to the users collection

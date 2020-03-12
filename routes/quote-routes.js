@@ -53,7 +53,7 @@ router.get('/:_id', (req, res) => {
 // send a kit to G2 for quoting
 router.post('/:_id', (req, res) => {
     const kit_id = req.body.kitId;
-
+    console.log(req.body)
     const kitArr = []
     // console.log(req.body
     Pallets.find({ kit_id })
@@ -80,23 +80,23 @@ router.post('/:_id', (req, res) => {
                             OrderDetails.find({ kit_id })
                                 .then(orderDetailsDocs => {
                                     kitArr.push(orderDetailsDocs[0]);
-                                    // console.log(kitArr[5])
-                                    res.status(201).json({ kitArr })
-
+                                    console.log(kitArr)
+                                    
                                     const pallet = kitArr[0]; 
                                     const box = kitArr[1]; 
                                     const boxLid = kitArr[2]; 
                                     const divider = kitArr[3]; 
                                     const foam = kitArr[4]; 
                                     const orderDetails = kitArr[5]; 
-
+                                    
                                     const transporter = nodemailer.createTransport({
-                                        service: 'Outlook365',
+                                        service: 'Gmail',
                                         auth: {
                                             user: `${process.env.EMAIL_ADDRESS}`,
                                             pass: `${process.env.EMAIL_PASSWORD}`
                                         }
                                     });
+
 
                                     const mailOptions = {
                                         from: `${process.env.EMAIL_ADDRESS}`,
@@ -105,10 +105,10 @@ router.post('/:_id', (req, res) => {
                                         text: `
                                         Quote request from: ${req.body.userCompany}
                                         Email: ${req.body.userEmail}
-
+                                        
                                         Pallet Specifications
                                         ----------------------------
-
+                                        
                                         ------ Wood -------
                                         Stringer Style: ${pallet.wood.style_of_stringer}
                                         Length of Stringer: ${pallet.wood.length_of_stringer}
@@ -124,14 +124,14 @@ router.post('/:_id', (req, res) => {
                                         Quantity of Bottom Boards: ${pallet.wood.qty_of_bottom_boards}
                                         Deck Board Wood Quality: ${pallet.wood.deck_board_wood_quality}
                                         Deck Board Special Notes: ${pallet.wood.deck_board_special_notes}
-
+                                        
                                         ------ Plastic ------
-                                        Type Of Plastic: ${pallet.plastic.type_of_plastic},
+                                        Type Of Plastic: ${pallet.plastic.style_of_pallet},
                                         Length Of Pallet: ${pallet.plastic.length_of_pallet},
                                         Width Of Pallet: ${pallet.plastic.width_of_pallet},
                                         Height Of Pallet: ${pallet.plastic.height_of_pallet},
-
-
+                                        
+                                        
                                         Box Specifications
                                         ----------------------------
                                         Box Style: ${box.style_of_box}
@@ -143,8 +143,8 @@ router.post('/:_id', (req, res) => {
                                         Box Print: ${box.box_print}
                                         Joint Construction: ${box.box_joint}
                                         Location of Print: ${box.location_of_print}
-
-
+                                        
+                                        
                                         Box Lid Specifications
                                         ---------------------------
                                         Style of Box Lid: ${boxLid.style_of_box_lid}
@@ -156,13 +156,13 @@ router.post('/:_id', (req, res) => {
                                         Box Lid Print: ${boxLid.box_lid_print}
                                         Location of Print: ${boxLid.location_of_print}
                                         Box Lid Special Notes: ${boxLid.box_lid_special_notes}
-
+                                        
 
                                         Divider Specifications
                                         --------------------------
-
+                                        
                                         ----- Corrugated -----
-
+                                        
                                         Divider Corrugated Grade: ${divider.corrugated.boardGrade}
                                         Length of Box: ${divider.corrugated.lengthOfBox}
                                         Width of Box: ${divider.corrugated.widthOfBox}
@@ -170,7 +170,7 @@ router.post('/:_id', (req, res) => {
                                         Number of Cells: ${divider.corrugated.numberOfCells}
                                         Air Pockets: ${divider.corrugated.airPockets}
                                         All Cells Used?: ${divider.corrugated.allCellsUsed}
-
+                                        
                                         ----- Paper -----
                                         Length of Box: ${divider.paper.lengthOfBox}
                                         Width of Box: ${divider.paper.widthOfBox}
@@ -178,7 +178,7 @@ router.post('/:_id', (req, res) => {
                                         Number of Cells: ${divider.paper.numberOfCells}
                                         Air Pockets: ${divider.paper.airPockets}
                                         Coated: ${divider.paper.coated}
-
+                                        
                                         ----- Cloth -----
                                         Length of Box: ${divider.cloth.lengthOfBox}
                                         Width of Box: ${divider.cloth.widthOfBox}
@@ -186,7 +186,7 @@ router.post('/:_id', (req, res) => {
                                         Number of Cells: ${divider.cloth.numberOfCells}
                                         Air Pockets: ${divider.cloth.airPockets}
                                         Cloth: ${divider.cloth.material}
-
+                                        
                                         ----- Pcorr -----
                                         Length of Box: ${divider.pcorr.lengthOfBox}
                                         Width of Box: ${divider.pcorr.widthOfBox}
@@ -194,8 +194,8 @@ router.post('/:_id', (req, res) => {
                                         Number of Cells: ${divider.pcorr.numberOfCells}
                                         Air Pockets: ${divider.pcorr.airPockets}
                                         Coated: ${divider.pcorr.coated}
-
-
+                                        
+                                        
                                         Foam Specifications
                                         -------------------------
                                         Length of Foam: ${foam.lengthOfFoam}
@@ -207,54 +207,59 @@ router.post('/:_id', (req, res) => {
                                         Lb per Cubic Foot: ${foam.lbPerCubicFoot}
                                         Die cut?: ${foam.dieCut}
                                         Drawing Available?: ${foam.drawingAvailable}
-
-
+                                        
+                                        
                                         Order Details Specifications
                                         -----------------------------------
                                         Monthly Quantity: ${orderDetails.monthly_quantity}
                                         Annual Quanitity: ${orderDetails.annual_quantity}
                                         Order Frequency: ${orderDetails.order_frequency}
-
+                                        
                                         `
                                     }
 
+                                    console.log('test')
+                                    
                                     transporter.sendMail(mailOptions) 
-                                        .then(res => {
-                                            console.log('this is in the transporter', res); 
-                                        })
-                                        .catch(err => {
-                                            console.log('this is in the transporter', err); 
-                                        })
-                                        // function (err, response) {
-                                        // if (err) {
-                                        //     console.error('There was an issue: ', err);
-                                        // } else {
-                                        //     console.log('Response: ', response);
-                                        // }
-                                        // });
+                                    .then(res => {
+                                        console.log('this is in the transporter', res); 
+                                        res.status(201).json({ kitArr })
+                                    })
+                                    .catch(err => {
+                                        console.log('this is in the transporter', err); 
+                                        res.status(500).json(err)
+                                    })
                                 })
                                 .catch(err => {
-                                    res.status(500).json({ error: err });
+                                    // res.status(500).json({ error: err });
+                                    console.log(err)
                                 })
+
+
+                                    // res.status(201).json({ kitArr })
+                            })
+                            .catch(err => {
+                                console.log(err)
+                            })
                         })
                         .catch(err => {
-                            res.status(500).json({ error: err });
+                            // res.status(500).json({ error: err });
+                            console.log(err)
                         })
                     })
                     .catch(err => {
-                        res.status(500).json({ error: err });
+                        // res.status(500).json({ error: err });
+                        console.log(err)
                     })
                 })
                 .catch(err => {
-                    res.status(500).json({ error: err });
-                })
-        })
-        .catch(err => {
-            res.status(500).json({ error: err });
+            // res.status(500).json({ error: err });
+            console.log(err)
         })
     })
     .catch(err => {
-        res.status(500).json({ error: err });
+        // res.status(500).json({ error: err });
+        console.log(err)
     })
 })
 // ======================== PUT Requests ===========================
