@@ -59,7 +59,7 @@ router.post('/:_id', (req, res) => {
             deck_board_wood_quality: req.body.wood.deckBoardWoodQuality,
             deck_board_special_notes: req.body.wood.deckBoardSpecialNotes,
         },
-        pallet: {
+        plastic: {
             type_of_plastic: req.body.plastic.typeOfPlastic,
             length_of_pallet: req.body.plastic.lengthOfPallet,
             width_of_pallet: req.body.plastic.widthOfPallet,
