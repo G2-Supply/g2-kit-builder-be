@@ -38,7 +38,7 @@ router.get('/:kit_id', (req, res) => {
 // ======================== POST Requests ===========================
 // create new pallet for a specific user
 router.post('/:_id', (req, res) => {
-    console.log(req.body); 
+    // console.log(req.body); 
 
     const pallet = new Pallets({
         user_id: req.params,

@@ -53,7 +53,7 @@ router.get('/:_id', (req, res) => {
 // send a kit to G2 for quoting
 router.post('/:_id', (req, res) => {
     const kit_id = req.body.kitId;
-
+    console.log(req.body)
     const kitArr = []
     // console.log(req.body
     Pallets.find({ kit_id })
@@ -80,16 +80,15 @@ router.post('/:_id', (req, res) => {
                             OrderDetails.find({ kit_id })
                                 .then(orderDetailsDocs => {
                                     kitArr.push(orderDetailsDocs[0]);
-                                    // console.log(kitArr[5])
-                                    res.status(201).json({ kitArr })
-
+                                    console.log(kitArr)
+                                    
                                     const pallet = kitArr[0]; 
                                     const box = kitArr[1]; 
                                     const boxLid = kitArr[2]; 
                                     const divider = kitArr[3]; 
                                     const foam = kitArr[4]; 
                                     const orderDetails = kitArr[5]; 
-
+                                    
                                     const transporter = nodemailer.createTransport({
                                         service: 'Gmail',
                                         auth: {
@@ -98,6 +97,7 @@ router.post('/:_id', (req, res) => {
                                         }
                                     });
 
+
                                     const mailOptions = {
                                         from: `${process.env.EMAIL_ADDRESS}`,
                                         to: `elijahmckay10@gmail.com`,
@@ -105,149 +105,161 @@ router.post('/:_id', (req, res) => {
                                         text: `
                                         Quote request from: ${req.body.userCompany}
                                         Email: ${req.body.userEmail}
-
+                                        
                                         Pallet Specifications
                                         ----------------------------
-
+                                        
                                         ------ Wood -------
-                                        Stringer Style: ${pallet.wood.style_of_stringer || 'not provided'}
-                                        Length of Stringer: ${pallet.wood.length_of_stringer || 'not provided'}
-                                        Quantity of Stringers: ${pallet.wood.qty_of_stringers || 'not provided'}
-                                        Side Access?: ${pallet.wood.side_access || 'not provided'}
-                                        Stringer Wood Quality: ${pallet.wood.stringer_wood_quality || 'not provided'}
-                                        Required Pallet Certifications: ${pallet.wood.required_pallet_certifications || 'not provided'}
-                                        Special Notes for Stringer: ${pallet.wood.stringer_special_notes || 'not provided'}
-                                        Top Board Style: ${pallet.wood.style_of_top_boards || 'not provided'}
-                                        Quantity of Top Boards: ${pallet.wood.qty_of_top_boards || 'not provided'}
-                                        Length of Deck Boards: ${pallet.wood.length_of_deck_boards || 'not provided'}
-                                        Style of Bottom Boards: ${pallet.wood.style_of_bottom_boards || 'not provided'}
-                                        Quantity of Bottom Boards: ${pallet.wood.qty_of_bottom_boards || 'not provided'}
-                                        Deck Board Wood Quality: ${pallet.wood.deck_board_wood_quality || 'not provided'}
-                                        Deck Board Special Notes: ${pallet.wood.deck_board_special_notes || 'not provided'}
-
+                                        Stringer Style: ${pallet.wood.style_of_stringer}
+                                        Length of Stringer: ${pallet.wood.length_of_stringer}
+                                        Quantity of Stringers: ${pallet.wood.qty_of_stringers}
+                                        Side Access?: ${pallet.wood.side_access}
+                                        Stringer Wood Quality: ${pallet.wood.stringer_wood_quality}
+                                        Required Pallet Certifications: ${pallet.wood.required_pallet_certifications}
+                                        Special Notes for Stringer: ${pallet.wood.stringer_special_notes}
+                                        Top Board Style: ${pallet.wood.style_of_top_boards}
+                                        Quantity of Top Boards: ${pallet.wood.qty_of_top_boards}
+                                        Length of Deck Boards: ${pallet.wood.length_of_deck_boards}
+                                        Style of Bottom Boards: ${pallet.wood.style_of_bottom_boards}
+                                        Quantity of Bottom Boards: ${pallet.wood.qty_of_bottom_boards}
+                                        Deck Board Wood Quality: ${pallet.wood.deck_board_wood_quality}
+                                        Deck Board Special Notes: ${pallet.wood.deck_board_special_notes}
+                                        
                                         ------ Plastic ------
-                                        Type Of Plastic: ${pallet.plastic.style_of_pallet || 'not provided'},
-                                        Length Of Pallet: ${pallet.plastic.length_of_pallet || 'not provided'},
-                                        Width Of Pallet: ${pallet.plastic.width_of_pallet || 'not provided'},
-                                        Height Of Pallet: ${pallet.plastic.height_of_pallet || 'not provided'},
-
-
+                                        Type Of Plastic: ${pallet.plastic.style_of_pallet},
+                                        Length Of Pallet: ${pallet.plastic.length_of_pallet},
+                                        Width Of Pallet: ${pallet.plastic.width_of_pallet},
+                                        Height Of Pallet: ${pallet.plastic.height_of_pallet},
+                                        
+                                        
                                         Box Specifications
                                         ----------------------------
-                                        Box Style: ${box.style_of_box || 'not provided'}
-                                        Length of Box: ${box.length_of_box || 'not provided'}
-                                        Width of Box: ${box.width_of_box || 'not provided'}
-                                        Height of Box: ${box.height_of_box || 'not provided'}
-                                        Corrugated Grade: ${box.grade_of_corrugated || 'not provided'}
-                                        Special Notes for Box: ${box.box_special_notes || 'not provided'}
-                                        Box Print: ${box.box_print || 'not provided'}
-                                        Joint Construction: ${box.box_joint || 'not provided'}
-                                        Location of Print: ${box.location_of_print || 'not provided'}
-
-
+                                        Box Style: ${box.style_of_box}
+                                        Length of Box: ${box.length_of_box}
+                                        Width of Box: ${box.width_of_box}
+                                        Height of Box: ${box.height_of_box}
+                                        Corrugated Grade: ${box.grade_of_corrugated}
+                                        Special Notes for Box: ${box.box_special_notes}
+                                        Box Print: ${box.box_print}
+                                        Joint Construction: ${box.box_joint}
+                                        Location of Print: ${box.location_of_print}
+                                        
+                                        
                                         Box Lid Specifications
                                         ---------------------------
-                                        Style of Box Lid: ${boxLid.style_of_box_lid || 'not provided'}
-                                        Length of Box Lid: ${boxLid.length_of_box_lid || 'not provided'}
-                                        Width of Box Lid: ${boxLid.width_of_box_lid || 'not provided'}
-                                        Height of Box Lid: ${boxLid.height_of_box_lid || 'not provided'}
-                                        Box Lid Corrugated Grade: ${boxLid.board_grade || 'not provided'}
-                                        Box Lid Joint Construction: ${boxLid.joint_construction || 'not provided'}
-                                        Box Lid Print: ${boxLid.box_lid_print || 'not provided'}
-                                        Location of Print: ${boxLid.location_of_print || 'not provided'}
-                                        Box Lid Special Notes: ${boxLid.box_lid_special_notes || 'not provided'}
-
+                                        Style of Box Lid: ${boxLid.style_of_box_lid}
+                                        Length of Box Lid: ${boxLid.length_of_box_lid}
+                                        Width of Box Lid: ${boxLid.width_of_box_lid}
+                                        Height of Box Lid: ${boxLid.height_of_box_lid}
+                                        Box Lid Corrugated Grade: ${boxLid.board_grade}
+                                        Box Lid Joint Construction: ${boxLid.joint_construction}
+                                        Box Lid Print: ${boxLid.box_lid_print}
+                                        Location of Print: ${boxLid.location_of_print}
+                                        Box Lid Special Notes: ${boxLid.box_lid_special_notes}
+                                        
 
                                         Divider Specifications
                                         --------------------------
-
+                                        
                                         ----- Corrugated -----
-
-                                        Divider Corrugated Grade: ${divider.corrugated.boardGrade || 'not provided'}
-                                        Length of Box: ${divider.corrugated.lengthOfBox || 'not provided'}
-                                        Width of Box: ${divider.corrugated.widthOfBox || 'not provided'}
-                                        Height of Box: ${divider.corrugated.heightOfBox || 'not provided'}
-                                        Number of Cells: ${divider.corrugated.numberOfCells || 'not provided'}
-                                        Air Pockets: ${divider.corrugated.airPockets || 'not provided'}
-                                        All Cells Used?: ${divider.corrugated.allCellsUsed || 'not provided'}
-
+                                        
+                                        Divider Corrugated Grade: ${divider.corrugated.boardGrade}
+                                        Length of Box: ${divider.corrugated.lengthOfBox}
+                                        Width of Box: ${divider.corrugated.widthOfBox}
+                                        Height of Box: ${divider.corrugated.heightOfBox}
+                                        Number of Cells: ${divider.corrugated.numberOfCells}
+                                        Air Pockets: ${divider.corrugated.airPockets}
+                                        All Cells Used?: ${divider.corrugated.allCellsUsed}
+                                        
                                         ----- Paper -----
-                                        Length of Box: ${divider.paper.lengthOfBox || 'not provided'}
-                                        Width of Box: ${divider.paper.widthOfBox || 'not provided'}
-                                        Height of Box: ${divider.paper.heightOfBox || 'not provided'}
-                                        Number of Cells: ${divider.paper.numberOfCells || 'not provided'}
-                                        Air Pockets: ${divider.paper.airPockets || 'not provided'}
-                                        Coated: ${divider.paper.coated || 'not provided'}
-
+                                        Length of Box: ${divider.paper.lengthOfBox}
+                                        Width of Box: ${divider.paper.widthOfBox}
+                                        Height of Box: ${divider.paper.heightOfBox}
+                                        Number of Cells: ${divider.paper.numberOfCells}
+                                        Air Pockets: ${divider.paper.airPockets}
+                                        Coated: ${divider.paper.coated}
+                                        
                                         ----- Cloth -----
-                                        Length of Box: ${divider.cloth.lengthOfBox || 'not provided'}
-                                        Width of Box: ${divider.cloth.widthOfBox || 'not provided'}
-                                        Height of Box: ${divider.cloth.heightOfBox || 'not provided'}
-                                        Number of Cells: ${divider.cloth.numberOfCells || 'not provided'}
-                                        Air Pockets: ${divider.cloth.airPockets || 'not provided'}
-                                        Cloth: ${divider.cloth.material || 'not provided'}
-
+                                        Length of Box: ${divider.cloth.lengthOfBox}
+                                        Width of Box: ${divider.cloth.widthOfBox}
+                                        Height of Box: ${divider.cloth.heightOfBox}
+                                        Number of Cells: ${divider.cloth.numberOfCells}
+                                        Air Pockets: ${divider.cloth.airPockets}
+                                        Cloth: ${divider.cloth.material}
+                                        
                                         ----- Pcorr -----
-                                        Length of Box: ${divider.pcorr.lengthOfBox || 'not provided'}
-                                        Width of Box: ${divider.pcorr.widthOfBox || 'not provided'}
-                                        Height of Box: ${divider.pcorr.heightOfBox || 'not provided'}
-                                        Number of Cells: ${divider.pcorr.numberOfCells || 'not provided'}
-                                        Air Pockets: ${divider.pcorr.airPockets || 'not provided'}
-                                        Coated: ${divider.pcorr.coated || 'not provided'}
-
-
+                                        Length of Box: ${divider.pcorr.lengthOfBox}
+                                        Width of Box: ${divider.pcorr.widthOfBox}
+                                        Height of Box: ${divider.pcorr.heightOfBox}
+                                        Number of Cells: ${divider.pcorr.numberOfCells}
+                                        Air Pockets: ${divider.pcorr.airPockets}
+                                        Coated: ${divider.pcorr.coated}
+                                        
+                                        
                                         Foam Specifications
                                         -------------------------
-                                        Length of Foam: ${foam.lengthOfFoam || 'not provided'}
-                                        Width of Foam: ${foam.widthOfFoam || 'not provided'}
-                                        Height of Foam: ${foam.heightOfFoam || 'not provided'}
-                                        Type of Foam: ${foam.material || 'not provided'}
-                                        Color: ${foam.color || 'not provided'}
-                                        Density: ${foam.density || 'not provided'}
-                                        Lb per Cubic Foot: ${foam.lbPerCubicFoot || 'not provided'}
-                                        Die cut?: ${foam.dieCut || 'not provided'}
-                                        Drawing Available?: ${foam.drawingAvailable || 'not provided'}
-
-
+                                        Length of Foam: ${foam.lengthOfFoam}
+                                        Width of Foam: ${foam.widthOfFoam}
+                                        Height of Foam: ${foam.heightOfFoam}
+                                        Type of Foam: ${foam.material}
+                                        Color: ${foam.color}
+                                        Density: ${foam.density}
+                                        Lb per Cubic Foot: ${foam.lbPerCubicFoot}
+                                        Die cut?: ${foam.dieCut}
+                                        Drawing Available?: ${foam.drawingAvailable}
+                                        
+                                        
                                         Order Details Specifications
                                         -----------------------------------
-                                        Monthly Quantity: ${orderDetails.monthly_quantity || 'not provided'}
-                                        Annual Quanitity: ${orderDetails.annual_quantity || 'not provided'}
-                                        Order Frequency: ${orderDetails.order_frequency || 'not provided'}
-
+                                        Monthly Quantity: ${orderDetails.monthly_quantity}
+                                        Annual Quanitity: ${orderDetails.annual_quantity}
+                                        Order Frequency: ${orderDetails.order_frequency}
+                                        
                                         `
                                     }
 
+                                    console.log('test')
+                                    
                                     transporter.sendMail(mailOptions) 
-                                        .then(res => {
-                                            console.log('this is in the transporter', res); 
-                                        })
-                                        .catch(err => {
-                                            console.log('this is in the transporter', err); 
-                                        })
+                                    .then(res => {
+                                        console.log('this is in the transporter', res); 
+                                        res.status(201).json({ kitArr })
+                                    })
+                                    .catch(err => {
+                                        console.log('this is in the transporter', err); 
+                                        res.status(500).json(err)
+                                    })
                                 })
                                 .catch(err => {
-                                    res.status(500).json({ error: err });
+                                    // res.status(500).json({ error: err });
+                                    console.log(err)
                                 })
+
+
+                                    // res.status(201).json({ kitArr })
+                            })
+                            .catch(err => {
+                                console.log(err)
+                            })
                         })
                         .catch(err => {
-                            res.status(500).json({ error: err });
+                            // res.status(500).json({ error: err });
+                            console.log(err)
                         })
                     })
                     .catch(err => {
-                        res.status(500).json({ error: err });
+                        // res.status(500).json({ error: err });
+                        console.log(err)
                     })
                 })
                 .catch(err => {
-                    res.status(500).json({ error: err });
-                })
-        })
-        .catch(err => {
-            res.status(500).json({ error: err });
+            // res.status(500).json({ error: err });
+            console.log(err)
         })
     })
     .catch(err => {
-        res.status(500).json({ error: err });
+        // res.status(500).json({ error: err });
+        console.log(err)
     })
 })
 // ======================== PUT Requests ===========================
