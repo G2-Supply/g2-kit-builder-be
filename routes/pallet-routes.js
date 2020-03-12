@@ -60,7 +60,7 @@ router.post('/:_id', (req, res) => {
             deck_board_special_notes: req.body.wood.deckBoardSpecialNotes,
         },
         plastic: {
-            type_of_plastic: req.body.plastic.typeOfPlastic,
+            style_of_pallet: req.body.plastic.styleOfPallet,
             length_of_pallet: req.body.plastic.lengthOfPallet,
             width_of_pallet: req.body.plastic.widthOfPallet,
             height_of_pallet: req.body.plastic.heightOfPallet,

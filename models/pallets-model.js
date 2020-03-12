@@ -22,7 +22,7 @@ const palletSchema = new mongoose.Schema({
         deck_board_special_notes: String,
     },
     plastic: {
-        type_of_plastic: String,
+        style_of_pallet: String,
         length_of_pallet: String,
         width_of_pallet: String,
         height_of_pallet: String,
