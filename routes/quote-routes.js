@@ -90,7 +90,7 @@ router.post('/:_id', (req, res) => {
                                     const orderDetails = kitArr[5]; 
                                     
                                     const transporter = nodemailer.createTransport({
-                                        service: 'Gmail',
+                                        service: 'Outlook',
                                         auth: {
                                             user: `${process.env.EMAIL_ADDRESS}`,
                                             pass: `${process.env.EMAIL_PASSWORD}`
@@ -222,7 +222,7 @@ router.post('/:_id', (req, res) => {
                                     
                                     transporter.sendMail(mailOptions) 
                                     .then(res => {
-                                        console.log('this is in the transporter', res); 
+                                        // console.log('this is in the transporter', res); 
                                         res.status(201).json({ kitArr })
                                     })
                                     .catch(err => {
