@@ -13,7 +13,7 @@ server.use(express.json());
 // security things, google for more info
 server.use(helmet()); 
 server.use(cors({
-    origin: '*'
+    origin: 'https://g2kitbuilder.com'
 })); 
 
 // route imports 
