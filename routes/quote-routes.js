@@ -114,142 +114,6 @@ function listLabels(auth) {
     });
 }
 
-// function sendEmail(auth, body, pallet, box, boxLid, divider, foam, orderDetails) {
-//     const gmail = google.gmail({ version: 'v1', auth });
-
-//     let baseMessage = `
-//     Pallet Specifications
-//     ----------------------------
-    
-//     ------ Wood -------
-//     Stringer Style: ${pallet.wood.style_of_stringer}
-//     Length of Stringer: ${pallet.wood.length_of_stringer}
-//     Quantity of Stringers: ${pallet.wood.qty_of_stringers}
-//     Side Access?: ${pallet.wood.side_access}
-//     Stringer Wood Quality: ${pallet.wood.stringer_wood_quality}
-//     Required Pallet Certifications: ${pallet.wood.required_pallet_certifications}
-//     Special Notes for Stringer: ${pallet.wood.stringer_special_notes}
-//     Top Board Style: ${pallet.wood.style_of_top_boards}
-//     Quantity of Top Boards: ${pallet.wood.qty_of_top_boards}
-//     Length of Deck Boards: ${pallet.wood.length_of_deck_boards}
-//     Style of Bottom Boards: ${pallet.wood.style_of_bottom_boards}
-//     Quantity of Bottom Boards: ${pallet.wood.qty_of_bottom_boards}
-//     Deck Board Wood Quality: ${pallet.wood.deck_board_wood_quality}
-//     Deck Board Special Notes: ${pallet.wood.deck_board_special_notes}
-
-//     ------ Plastic ------
-//     Type Of Plastic: ${pallet.plastic.style_of_pallet},
-//     Length Of Pallet: ${pallet.plastic.length_of_pallet},
-//     Width Of Pallet: ${pallet.plastic.width_of_pallet},
-//     Height Of Pallet: ${pallet.plastic.height_of_pallet},
-
-
-//     Box Specifications
-//     ----------------------------
-//     Box Style: ${box.style_of_box}
-//     Length of Box: ${box.length_of_box}
-//     Width of Box: ${box.width_of_box}
-//     Height of Box: ${box.height_of_box}
-//     Corrugated Grade: ${box.grade_of_corrugated}
-//     Special Notes for Box: ${box.box_special_notes}
-//     Box Print: ${box.box_print}
-//     Joint Construction: ${box.box_joint}
-//     Location of Print: ${box.location_of_print}
-
-
-//     Box Lid Specifications
-//     ---------------------------
-//     Style of Box Lid: ${boxLid.style_of_box_lid}
-//     Length of Box Lid: ${boxLid.length_of_box_lid}
-//     Width of Box Lid: ${boxLid.width_of_box_lid}
-//     Height of Box Lid: ${boxLid.height_of_box_lid}
-//     Box Lid Corrugated Grade: ${boxLid.board_grade}
-//     Box Lid Joint Construction: ${boxLid.joint_construction}
-//     Box Lid Print: ${boxLid.box_lid_print}
-//     Location of Print: ${boxLid.location_of_print}
-//     Box Lid Special Notes: ${boxLid.box_lid_special_notes}
-    
-
-//     Divider Specifications
-//     --------------------------
-    
-//     ----- Corrugated -----
-    
-//     Divider Corrugated Grade: ${divider.corrugated.boardGrade}
-//     Length of Box: ${divider.corrugated.lengthOfBox}
-//     Width of Box: ${divider.corrugated.widthOfBox}
-//     Height of Box: ${divider.corrugated.heightOfBox}
-//     Number of Cells: ${divider.corrugated.numberOfCells}
-//     Air Pockets: ${divider.corrugated.airPockets}
-//     All Cells Used?: ${divider.corrugated.allCellsUsed}
-    
-//     ----- Paper -----
-//     Length of Box: ${divider.paper.lengthOfBox}
-//     Width of Box: ${divider.paper.widthOfBox}
-//     Height of Box: ${divider.paper.heightOfBox}
-//     Number of Cells: ${divider.paper.numberOfCells}
-//     Air Pockets: ${divider.paper.airPockets}
-//     Coated: ${divider.paper.coated}
-    
-//     ----- Cloth -----
-//     Length of Box: ${divider.cloth.lengthOfBox}
-//     Width of Box: ${divider.cloth.widthOfBox}
-//     Height of Box: ${divider.cloth.heightOfBox}
-//     Number of Cells: ${divider.cloth.numberOfCells}
-//     Air Pockets: ${divider.cloth.airPockets}
-//     Cloth: ${divider.cloth.material}
-    
-//     ----- Pcorr -----
-//     Length of Box: ${divider.pcorr.lengthOfBox}
-//     Width of Box: ${divider.pcorr.widthOfBox}
-//     Height of Box: ${divider.pcorr.heightOfBox}
-//     Number of Cells: ${divider.pcorr.numberOfCells}
-//     Air Pockets: ${divider.pcorr.airPockets}
-//     Coated: ${divider.pcorr.coated}
-    
-    
-//     Foam Specifications
-//     -------------------------
-//     Length of Foam: ${foam.lengthOfFoam}
-//     Width of Foam: ${foam.widthOfFoam}
-//     Height of Foam: ${foam.heightOfFoam}
-//     Type of Foam: ${foam.material}
-//     Color: ${foam.color}
-//     Density: ${foam.density}
-//     Lb per Cubic Foot: ${foam.lbPerCubicFoot}
-//     Die cut?: ${foam.dieCut}
-//     Drawing Available?: ${foam.drawingAvailable}
-    
-    
-//     Order Details Specifications
-//     -----------------------------------
-//     Monthly Quantity: ${orderDetails.monthly_quantity}
-//     Annual Quanitity: ${orderDetails.annual_quantity}
-//     Order Frequency: ${orderDetails.order_frequency}
-//     `
-
-//     var str = ["Content-Type: text/plain; charset=\"UTF-8\"\n",
-//     "MIME-Version: 1.0\n",
-//     "Content-Transfer-Encoding: 7bit\n",
-//     "to: ", 'elijahmckay10@gmail.com', "\n",
-//     "from: ", body.userEmail, "\n",
-//     "subject: ", "G2 Kit Builder Quote Request from " + body.userCompany, "\n\n",
-//     baseMessage
-//     ].join('');
-
-//     var encodedMail = new Buffer(str).toString("base64").replace(/\+/g, '-').replace(/\//g, '_');
-
-//     gmail.users.messages.send({
-//         userId: 'me',
-//         resource: {
-//             raw: encodedMail,
-//         }
-//     }, function(err, response) {
-//         res.send(err || response)
-//     })
-// }
-
-
 // ======================== GET Requests ===========================
 // GET kit associated with a users ID
 router.get('/:_id', (req, res) => {
@@ -439,11 +303,11 @@ router.post('/:_id', (req, res) => {
                                         Annual Quanitity: ${orderDetails.annual_quantity}
                                         Order Frequency: ${orderDetails.order_frequency}
                                         `
-                                    
+                                        console.log(process.env.RECEIVING_EMAIL)
                                         var str = ["Content-Type: text/plain; charset=\"UTF-8\"\n",
                                         "MIME-Version: 1.0\n",
                                         "Content-Transfer-Encoding: 7bit\n",
-                                        "to: ", 'elijahmckay10@gmail.com', "\n",
+                                        "to: ", process.env.RECEIVING_EMAIL, "\n",
                                         "from: ", body.userEmail, "\n",
                                         "subject: ", "G2 Kit Builder Quote Request from " + body.userCompany, "\n\n",
                                         baseMessage

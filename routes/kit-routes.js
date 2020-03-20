@@ -30,6 +30,8 @@ router.post('/:_id', (req, res) => {
     const kit = new Kits({
         user_id: req.params,
     });
+
+    console.log(kit)
   
     // saving the user to the users collection
     kit.save()
