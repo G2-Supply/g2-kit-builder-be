@@ -30,8 +30,10 @@
     "crypto": "^1.0.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "googleapis": "^39.2.0",
     "helmet": "^3.21.2",
     "jest": "^24.9.0",
+    "js-base64": "^2.5.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.10",
     "nodemailer": "^6.3.1"

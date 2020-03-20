@@ -8,11 +8,11 @@ require('dotenv').config();
 //instantiating server 
 const server = express(); 
 
+server.use(cors({origin: '*'})); 
 // middleware instantiation 
 server.use(express.json());
 // security things, google for more info
 server.use(helmet()); 
-server.use(cors()); 
 
 // route imports 
 const testRoutes = require('./routes/test-routes'); 
